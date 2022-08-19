@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: block;
+}
+
+main {
+    display: flex;
+    width: 75vh;
+    flex-wrap: wrap;
+}
+
+h1 {
+    text-align: center;
+}
+
+.cell {
+   width: 25vh;
+   height: 25vh;
+}
+
+
+
+
+
+
+
+
+
+.cell:nth-child(3n+2) { 
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+  }
+
+  .cell:nth-child(n+4):nth-child(-n+6) {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+  }
