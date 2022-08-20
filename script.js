@@ -1,6 +1,7 @@
 // INITIAL STATE
 const state = {};
 
+const character = ['X', 'O'];
 
 const resetState = () => {
     state.board = [ 
@@ -21,8 +22,9 @@ const changeTurn = () => {
 const getCurrentPlayer = () => state.players[state.currentPlayerIndx];
 
 const render = () => {
-    renderPlayer();
     renderBoard();
+    renderPlayer();
+    renderCharacter();
 }
 
 
@@ -30,6 +32,7 @@ const render = () => {
 // DOM Selectors
 const boardElem = document.getElementById('board');
 const playerTurnElem = document.getElementById('player-turn');
+const characterElem = document.getElementById('character');
 
 // DOM Manipulators
 const renderBoard = () => {
@@ -62,6 +65,23 @@ const renderPlayer = () => {
 
 }
 
+const renderCharacter = () => {
+    let text;
+    if(!state.players[0] || !state.players[1]) {
+        text = `
+   <div>Player 1: ${character[0]}</div>
+   <div>Player 2: ${character[1]}</div>
+   `
+   characterElem.innerHTML  = text;
+    } else {
+
+   characterElem.innerHTML = `
+   <div>${state.players[0]}: ${character[0]}</div>
+   <div>${state.players[1]}: ${character[1]}</div>
+   `
+    }
+}
+
 // EVENT LISTENERS
 boardElem.addEventListener('click', (event) => {
     if(event.target.className !== 'cell') return;
@@ -76,14 +96,12 @@ boardElem.addEventListener('click', (event) => {
 playerTurnElem.addEventListener('click', (event) => {
     if(event.target.className !== 'start') return;
  
-    // console.log('I am Her');
     const player1Input = document.getElementsByName('player1')[0];
     state.players[0] = player1Input.value;
 
     const player2Input = document.getElementsByName('player2')[0];
     state.players[1] = player2Input.value;
     
-    console.log(state.players);
     render();
 }) 
 
