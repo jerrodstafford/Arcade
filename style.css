@@ -35,6 +35,6 @@ h1 {
   }
 
   .cell:nth-child(n+4):nth-child(-n+6) {
-    border-top: 3px solid black;
-    border-bottom: 3px solid black;
-  }
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
