@@ -21,7 +21,8 @@ body {
 section {
     background-color: lightgray;
     margin: 0;
-    padding: .5rem 0;
+    padding: .5rem 2rem;
+
 }
 
 
@@ -44,9 +45,11 @@ h2 {
     background-color: whitesmoke;
     margin: .5rem 0;
 }
+
 .cell {
    width: 25vh;
    height: 25vh;
+   font-size: large;
 }
 
 #player-turn {

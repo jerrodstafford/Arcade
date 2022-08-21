@@ -1,7 +1,6 @@
 // INITIAL STATE
 const state = {};
 
-const character = ['X', 'O'];
 
 const resetState = () => {
     state.board = [ 
@@ -9,17 +8,27 @@ const resetState = () => {
         [null, null, null],
         [null, null, null]
     ];
-
+    
     state.players = ['', ''];
     state.currentPlayerIndx = 0;
+    state.character = ['X', 'O'];
+    state.playerCharacterIndx = 0;
 }
 
 //HELPER FUNCTIONS - Small functions that do basic things
 const changeTurn = () => {
     state.currentPlayerIndx = state.currentPlayerIndx === 0 ? 1 : 0;
 } 
+const changeCharacter = () => {
+    state.playerCharacterIndx = state.playerCharacterIndx === 0 ? 1 : 0;
+} 
 
 const getCurrentPlayer = () => state.players[state.currentPlayerIndx];
+
+
+const currentPlayerCharacter = () => state.character[state.playerCharacterIndx];
+
+
 
 const render = () => {
     renderBoard();
@@ -34,16 +43,17 @@ const boardElem = document.getElementById('board');
 const playerTurnElem = document.getElementById('player-turn');
 const characterElem = document.getElementById('character');
 
+
 // DOM Manipulators
 const renderBoard = () => {
     boardElem.innerHTML = ''
     let flattenedBoard = state.board.flat(state.board.length);
 
     for(let i = 0; i < flattenedBoard.length; i++) { 
-        const square = flattenedBoard[i];
+        // const square = flattenedBoard[i];
         const cellElem = document.createElement('div');
         cellElem.classList.add('cell');
-        cellElem.innerHTML = square;
+        // cellElem.innerHTML = square;
         cellElem.dataset.index = i;
         boardElem.appendChild(cellElem);
     
@@ -63,35 +73,46 @@ const renderPlayer = () => {
     }
         playerTurnElem.innerHTML = text;
 
-}
-
-const renderCharacter = () => {
-    let text;
-    if(!state.players[0] || !state.players[1]) {
-        text = `
-   <div>Player 1: ${character[0]}</div>
-   <div>Player 2: ${character[1]}</div>
-   `
-   characterElem.innerHTML  = text;
-    } else {
-
-   characterElem.innerHTML = `
-   <div>${state.players[0]}: ${character[0]}</div>
-   <div>${state.players[1]}: ${character[1]}</div>
-   `
+        
     }
-}
+    
+const renderCharacter = () => {
+        let text;
+        if(!state.players[0] || !state.players[1]) {
+            text = `
+            <div>Player 1: ${state.character[0]}</div>
+            <div>Player 2: ${state.character[1]}</div>
+            `
+            characterElem.innerHTML = text;
+        } else {
+            
+            characterElem.innerHTML = `
+            <div>${state.players[0]}: ${state.character[0]}</div>
+            <div>${state.players[1]}: ${state.character[1]}</div>
+            `
+        }
+    }
+    
 
 // EVENT LISTENERS
 boardElem.addEventListener('click', (event) => {
+    // let text = 
+    event.target.innerHTML = `<div>${currentPlayerCharacter()}</div>`;
+    console.log(event.target.innerHTML);
+
     if(event.target.className !== 'cell') return;
+    if(!state.players[0] || !state.players[1]) return;
 
-    let cellIndex = event.target.dataset.index
-    // state.board[cellIndex] = ;
+    // let text = `${currentPlayerCharacter()}`
+    // document.getElementsByClassName("cell").innerHTML = `${currentPlayerCharacter()}`
 
+    console.log(event.target);
+    
     changeTurn();
+    changeCharacter();
     render();
-})
+    })
+    
 
 playerTurnElem.addEventListener('click', (event) => {
     if(event.target.className !== 'start') return;
@@ -104,8 +125,6 @@ playerTurnElem.addEventListener('click', (event) => {
     
     render();
 }) 
-
-
 
 // BOOSTRAP FUNCTIONS
 resetState();
