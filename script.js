@@ -68,13 +68,23 @@ const renderPlayer = () => {
         <input name="player2" placeholder="Enter player 2's name">
         <button class="start">Start</button>
         `
-    } else {   
-        text = `It's currently ${getCurrentPlayer()}'s turn`
-    }
-        playerTurnElem.innerHTML = text;
-
         
-    }
+        // else if(state.winner !== '') {
+            //     const playAgainButton = `
+            //     <button class="restart">Play Again</button> 
+            //     `;
+        } else {   
+            text = `It's currently ${getCurrentPlayer()}'s turn`
+        }
+        playerTurnElem.innerHTML = text;
+ if(state.players[0] || state.players[1]) {
+    const resetButton = document.createElement('button');
+    resetButton.innerHTML = `
+     <button class="reset">Reset</button>
+     `;
+     playerTurnElem.append(resetButton)
+                }
+            }
     
 const renderCharacter = () => {
         let text;
@@ -92,7 +102,16 @@ const renderCharacter = () => {
             `
         }
     }
-    
+
+const checkBoard = () => {
+    for (let i = 0; i < flattenedBoard.length; i++)
+        cellIndx = flattenedBoard[i]
+
+}
+
+
+
+
 
 // EVENT LISTENERS
 boardElem.addEventListener('click', (event) => {
@@ -115,15 +134,22 @@ boardElem.addEventListener('click', (event) => {
     
 
 playerTurnElem.addEventListener('click', (event) => {
-    if(event.target.className !== 'start') return;
+    if(event.target.className === 'reset') {
+
+    resetState();
+    render();
+}
+    
+    else if(event.target.className === 'start') {
  
     const player1Input = document.getElementsByName('player1')[0];
     state.players[0] = player1Input.value;
 
     const player2Input = document.getElementsByName('player2')[0];
     state.players[1] = player2Input.value;
-    
+
     render();
+    }
 }) 
 
 // BOOSTRAP FUNCTIONS
