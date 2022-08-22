@@ -49,7 +49,7 @@ h2 {
 .cell {
    width: 25vh;
    height: 25vh;
-   font-size: large;
+   font-size: 20vh;;
 }
 
 #player-turn {

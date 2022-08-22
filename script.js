@@ -96,21 +96,21 @@ const renderCharacter = () => {
 
 // EVENT LISTENERS
 boardElem.addEventListener('click', (event) => {
-    // let text = 
-    event.target.innerHTML = `<div>${currentPlayerCharacter()}</div>`;
-    console.log(event.target.innerHTML);
-
     if(event.target.className !== 'cell') return;
     if(!state.players[0] || !state.players[1]) return;
+    
+    
+    event.target.innerHTML = `<div>${currentPlayerCharacter()}</div>`;
+    console.log(event.target.innerHTML);
+    
+    let cellIndx = event.target.dataset.index;
+    console.log(cellIndx);
 
-    // let text = `${currentPlayerCharacter()}`
-    // document.getElementsByClassName("cell").innerHTML = `${currentPlayerCharacter()}`
-
-    console.log(event.target);
+    // if(cellIndx === X || cellIndx ===
     
     changeTurn();
     changeCharacter();
-    render();
+    renderPlayer();
     })
     
 
